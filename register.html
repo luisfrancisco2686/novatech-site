@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - Novatech</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="Novatech Logo" class="logo">
+        <span class="logo-text">Servicios Tecnológicos</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contáctenos</a></li>
+        <li id="loginLink"><a href="login.html">Login</a></li>
+        <li>
+          <a href="carrito.html" class="carrito">
+            <img src="img/carrito.png" alt="Carrito" class="icono-carrito">
+            <span class="contador">0</span>
+          </a>
+        </li>
+        <li id="adminMenu" style="display:none;">
+          <a href="admin-productos.html">Administrar productos</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="register-container">
+    <div class="register-form">
+      <h2>Crear Cuenta</h2>
+      <form id="registerForm">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="Mínimo 5 caracteres" required minlength="5">
+
+        <button type="submit">Registrarse</button>
+      </form>
+      <p class="extra">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Novatech. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      // Verificar si ya existe
+      const existe = usuarios.find(user => user.email === email);
+      if (existe) {
+        alert("⚠️ El correo ya está registrado. Intenta con otro.");
+        return;
+      }
+
+      // Guardar nuevo usuario
+      usuarios.push({ email, password });
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+      alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+      window.location.href = "login.html";
+    });
+  </script>
+    <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="img/logo.png" alt="NOVATECH">
+      </div>
+      <div class="footer-info">
+        <p>© 2025 NOVATECH. Todos los derechos reservados.</p>
+      </div>
+      <div class="footer-social">
+        <a href="#"><img src="img/facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="img/twitter.png" alt="Twitter"></a>
+        <a href="#"><img src="img/youtube.png" alt="YouTube"></a>
+        <a href="#"><img src="img/linkedin.png" alt="LinkedIn"></a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>Desarrollado por NOVATECH</p>
+    </div>
+  </footer>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      document.getElementById("adminMenu").style.display = "block";
+      document.getElementById("loginLink").style.display = "none";
+    }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    const loginLink = document.getElementById("loginLink");
+    const logoutLink = document.getElementById("logoutLink");
+    const adminMenu = document.getElementById("adminMenu");
+
+    if (isAdmin) {
+      adminMenu.style.display = "block";
+      loginLink.style.display = "none";
+      logoutLink.style.display = "block";
+    } else {
+      adminMenu.style.display = "none";
+      loginLink.style.display = "block";
+      logoutLink.style.display = "none";
+    }
+
+    // Cerrar sesión
+    logoutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("isAdmin");
+      window.location.href = "index.html"; // redirigir a inicio
+    });
+  });
+</script>
+</body>
+</html>

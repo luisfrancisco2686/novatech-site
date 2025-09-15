@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrar Productos - Novatech</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="Novatech Logo" class="logo">
+        <span class="logo-text">Servicios Tecnológicos</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contáctenos</a></li>
+        <li id="loginLink"><a href="login.html">Login</a></li>
+        <li>
+          <a href="carrito.html" class="carrito">
+            <img src="img/carrito.png" alt="Carrito" class="icono-carrito">
+            <span class="contador">0</span>
+          </a>
+        </li>
+        <li id="adminMenu" style="display:none;">
+          <a href="admin-productos.html">Administrar productos</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <main class="admin-container">
+    <div class="admin-form">
+      <h2>Administrar Productos</h2>
+      <button class="btn btn-primary">Agregar nuevo producto</button>
+    </div>
+
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Existencias</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Servicio 1 -->
+        <tr>
+          <td>1</td>
+          <td><img src="img/servicio1.png" alt="Servicio 1" width="80"></td>
+          <td>Servicio 1</td>
+          <td>$100</td>
+          <td>15</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="1"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="1"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="1"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 2 -->
+        <tr>
+          <td>2</td>
+          <td><img src="img/servicio2.png" alt="Servicio 2" width="80"></td>
+          <td>Servicio 2</td>
+          <td>$120</td>
+          <td>20</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="2"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="2"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="2"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 3 -->
+        <tr>
+          <td>3</td>
+          <td><img src="img/servicio3.png" alt="Servicio 3" width="80"></td>
+          <td>Servicio 3</td>
+          <td>$85</td>
+          <td>39</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="3"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="3"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="3"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 4 -->
+        <tr>
+          <td>4</td>
+          <td><img src="img/servicio4.png" alt="Servicio 4" width="80"></td>
+          <td>Servicio 4</td>
+          <td>$90</td>
+          <td>10</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="4"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="4"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="4"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 5 -->
+        <tr>
+          <td>5</td>
+          <td><img src="img/servicio5.png" alt="Servicio 5" width="80"></td>
+          <td>Servicio 5</td>
+          <td>$60</td>
+          <td>25</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="5"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="5"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="5"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 6 -->
+        <tr>
+          <td>6</td>
+          <td><img src="img/servicio6.png" alt="Servicio 6" width="80"></td>
+          <td>Servicio 6</td>
+          <td>$45</td>
+          <td>18</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="6"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="6"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="6"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 7 -->
+        <tr>
+          <td>7</td>
+          <td><img src="img/servicio7.png" alt="Servicio 7" width="80"></td>
+          <td>Servicio 7</td>
+          <td>$75</td>
+          <td>30</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="7"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="7"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="7"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 8 -->
+        <tr>
+          <td>8</td>
+          <td><img src="img/servicio8.png" alt="Servicio 8" width="80"></td>
+          <td>Servicio 8</td>
+          <td>$150</td>
+          <td>12</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="8"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="8"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="8"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Servicio 9 -->
+        <tr>
+          <td>9</td>
+          <td><img src="img/servicio9.png" alt="Servicio 9" width="80"></td>
+          <td>Servicio 9</td>
+          <td>$200</td>
+          <td>7</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info btn-view" data-id="9"><i class="fas fa-eye"></i> Ver</button>
+              <button class="btn btn-success btn-edit" data-id="9"><i class="fas fa-edit"></i> Modificar</button>
+              <button class="btn btn-danger btn-delete" data-id="9"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="admin-form">
+      <h3>Crear Producto</h3>
+      <form>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre">
+
+        <label for="descripcion">Descripción breve</label>
+        <textarea id="descripcion" name="descripcion"></textarea>
+
+        <label for="caracteristicas">Características (separadas por ;)</label>
+        <input type="text" id="caracteristicas" name="caracteristicas" placeholder="Carac1;Carac2;Carac3">
+
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" name="precio">
+
+        <label for="existencias">Existencias</label>
+        <input type="number" id="existencias" name="existencias">
+
+        <label for="imagen">Nombre de archivo de imagen</label>
+        <input type="text" id="imagen" name="imagen" placeholder="ejemplo.png">
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="reset" class="btn btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <img src="img/logo.png" alt="Novatech Logo" class="footer-logo">
+      <p>© 2025 NOVATECH. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      document.getElementById("adminMenu").style.display = "block";
+      document.getElementById("loginLink").style.display = "none";
+    }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    const loginLink = document.getElementById("loginLink");
+    const logoutLink = document.getElementById("logoutLink");
+    const adminMenu = document.getElementById("adminMenu");
+
+    if (isAdmin) {
+      adminMenu.style.display = "block";
+      loginLink.style.display = "none";
+      logoutLink.style.display = "block";
+    } else {
+      adminMenu.style.display = "none";
+      loginLink.style.display = "block";
+      logoutLink.style.display = "none";
+    }
+
+    // Cerrar sesión
+    logoutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("isAdmin");
+      window.location.href = "index.html"; // redirigir a inicio
+    });
+  });
+</script>
+</body>
+</html>

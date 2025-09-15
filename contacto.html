@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Contáctenos - NOVATECH</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .contact-header { text-align:center; margin:36px 0; }
+    .contact-box { width:70%; margin:0 auto 40px; background:#1e1720; padding:28px; border-radius:6px; color:#fff; }
+    .contact-box label { display:block; margin-bottom:8px; font-weight:600; }
+    .contact-box input, .contact-box textarea, .contact-box select {
+      width:100%; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:12px;
+    }
+    .error { color:#ff6b6b; font-size:0.9rem; display:none; margin-bottom:8px; }
+    .success { color:#2ecc71; display:none; margin-top:8px; }
+    .contact-box .btn { margin-top:8px; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="Novatech Logo" class="logo">
+        <span class="logo-text">Servicios Tecnológicos</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contáctenos</a></li>
+        <li id="loginLink"><a href="login.html">Login</a></li>
+        <li>
+          <a href="carrito.html" class="carrito">
+            <img src="img/carrito.png" alt="Carrito" class="icono-carrito">
+            <span class="contador">0</span>
+          </a>
+        </li>
+        <li id="adminMenu" style="display:none;">
+          <a href="admin-productos.html">Administrar productos</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="contact-header">CONTACTENOS</h1>
+
+    <section class="contact-box" id="contactBox">
+      <form id="contactForm" novalidate>
+        <label for="nombres">Nombres</label>
+        <input id="nombres" name="nombres" required minlength="2" />
+        <div class="error" id="errNombres">Ingrese al menos 2 caracteres.</div>
+
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" name="apellidos" required minlength="2" />
+        <div class="error" id="errApellidos">Ingrese al menos 2 caracteres.</div>
+
+        <label for="email">Email <span style="color:#ff6b6b">*</span></label>
+        <input id="email" name="email" type="email" required />
+        <div class="error" id="errEmail">Ingrese un email válido (ej: ejemplo@dominio.com).</div>
+
+        <label for="empresa">Empresa</label>
+        <input id="empresa" name="empresa" />
+
+        <label for="pais">País de residencia</label>
+        <select id="pais" name="pais" required>
+          <option value="">Selecciona...</option>
+          <option>Colombia</option>
+          <option>Argentina</option>
+          <option>Chile</option>
+          <option>Perú</option>
+          <option>Otro</option>
+        </select>
+        <div class="error" id="errPais">Selecciona un país.</div>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="6" minlength="10" required></textarea>
+        <div class="error" id="errMensaje">El mensaje debe tener al menos 10 caracteres.</div>
+
+        <div style="display:flex;gap:12px;align-items:center;">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+
+        <div class="success" id="successMsg">Formulario válido. Revisa la acción seleccionada para enviar.</div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="img/logofooter.png" alt="NOVATECH Logo">
+      </div>
+      <div class="footer-info">
+        <p>Lorem ipsum has been the industry's standard dummy text ever since the 1500s...</p>
+      </div>
+      <div class="footer-social">
+        <a href="#"><img src="img/facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="img/twitter.png" alt="Twitter"></a>
+        <a href="#"><img src="img/youtube.png" alt="YouTube"></a>
+        <a href="#"><img src="img/linkedin.png" alt="LinkedIn"></a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 NOVATECH. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/services.js"></script>
+  <script>
+    initContactPage(); // Función de services.js
+  </script>
+</body>
+</html>

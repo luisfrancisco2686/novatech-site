@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NOVATECH - Inicio</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="Novatech Logo" class="logo" />
+        <span class="logo-text">Servicios Tecnológicos</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active-link">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contáctenos</a></li>
+        <li id="loginLink"><a href="login.html">Login</a></li>
+        <li>
+          <a href="carrito.html" class="carrito">
+            <img src="img/carrito.png" alt="Carrito" class="icono-carrito" />
+            <span class="contador">0</span>
+          </a>
+        </li>
+        <li id="adminMenu" style="display:none;">
+          <a href="admin-productos.html">Administrar productos</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="text-block">
+        <h1>Sobre <span class="highlight">NOVATECH</span></h1>
+        <p>
+          NOVATECH es una empresa de servicios tecnológicos comprometida con ofrecer
+          soluciones innovadoras y confiables para sus clientes. Para ampliar su cobertura
+          y mejorar su presencia digital, la empresa ha decidido abrir una nueva área de
+          desarrollo de software enfocada en crear una aplicación web moderna y funcional
+          que facilite la gestión y venta de sus servicios tecnológicos.
+        </p>
+        <button class="btn-primary" onclick="window.location.href='servicios.html'">Ingresar</button>
+      </div>
+      <div class="image-block">
+        <img src="img/laptop.png" alt="Laptop NOVATECH" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="img/logofooter.png" alt="NOVATECH Logo" />
+      </div>
+      <div class="footer-info">
+        <p>Lorem ipsum has been the industry's standard dummy text ever since the 1500s...</p>
+      </div>
+      <div class="footer-social">
+        <a href="#"><img src="img/facebook.png" alt="Facebook" /></a>
+        <a href="#"><img src="img/twitter.png" alt="Twitter" /></a>
+        <a href="#"><img src="img/youtube.png" alt="YouTube" /></a>
+        <a href="#"><img src="img/linkedin.png" alt="LinkedIn" /></a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 NOVATECH. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("isAdmin") === "true") {
+        document.getElementById("adminMenu").style.display = "block";
+        document.getElementById("loginLink").style.display = "none";
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const isAdmin = localStorage.getItem("isAdmin") === "true";
+      const loginLink = document.getElementById("loginLink");
+      const logoutLink = document.getElementById("logoutLink");
+      const adminMenu = document.getElementById("adminMenu");
+
+      if (isAdmin) {
+        adminMenu.style.display = "block";
+        loginLink.style.display = "none";
+        if (logoutLink) logoutLink.style.display = "block";
+      } else {
+        adminMenu.style.display = "none";
+        loginLink.style.display = "block";
+        if (logoutLink) logoutLink.style.display = "none";
+      }
+
+      if (logoutLink) {
+        logoutLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("isAdmin");
+          window.location.href = "index.html"; // redirigir a inicio
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

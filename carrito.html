@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras - Novatech</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="Novatech Logo" class="logo">
+        <span class="logo-text">Servicios Tecnológicos</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contáctenos</a></li>
+        <li id="loginLink"><a href="login.html">Login</a></li>
+        <li>
+          <a href="carrito.html" class="carrito">
+            <img src="img/carrito.png" alt="Carrito" class="icono-carrito">
+            <span class="contador">0</span>
+          </a>
+        </li>
+        <li id="adminMenu" style="display:none;">
+          <a href="admin-productos.html">Administrar productos</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container">
+    <h1>🛒 Carrito de Servicios</h1>
+    
+    <section id="cart-items">
+      <p>No tienes servicios en tu carrito.</p>
+    </section>
+
+    <section id="cart-summary">
+      <h2>Resumen del pedido</h2>
+      <p>Total: <span id="cart-total">$0</span></p>
+      
+      <!-- Formulario para enviar pedido -->
+      <form id="order-form">
+        <label for="nombre">Tu nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="correo">Tu correo:</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <label for="direccion">Dirección de facturación:</label>
+        <input type="text" id="direccion" name="direccion" required>
+
+        <label for="pedido">Detalle del pedido:</label>
+        <textarea name="pedido" id="pedido" readonly></textarea>
+
+        <button type="submit" class="btn">Enviar pedido</button>
+      </form>
+
+      <p id="msg"></p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Novatech. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Ejemplo de servicios como en servicios.html
+    const cartItems = [
+      { nombre: "Soporte Técnico Empresarial", precio: 250000 },
+      { nombre: "Consultoría en Transformación Digital", precio: 400000 },
+      { nombre: "Mantenimiento Preventivo de Servidores", precio: 350000 }
+    ];
+
+    const cartContainer = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const pedidoTextarea = document.getElementById("pedido");
+
+    if(cartItems.length > 0){
+      cartContainer.innerHTML = "";
+      let total = 0;
+      let pedidoDetalle = "";
+
+      cartItems.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `<p>${item.nombre} - $${item.precio.toLocaleString()}</p>`;
+        cartContainer.appendChild(div);
+
+        total += item.precio;
+        pedidoDetalle += `${item.nombre} - $${item.precio.toLocaleString()}\n`;
+      });
+
+      cartTotal.textContent = "$" + total.toLocaleString();
+      pedidoTextarea.value = pedidoDetalle;
+    }
+
+    // Enviar datos al backend
+    const form = document.getElementById("order-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        nombre: form.nombre.value,
+        correo: form.correo.value,
+        direccion: form.direccion.value,
+        pedido: form.pedido.value
+      };
+
+      const response = await fetch("http://localhost:3000/enviar-pedido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      document.getElementById("msg").textContent = result.message;
+    });
+  </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      document.getElementById("adminMenu").style.display = "block";
+      document.getElementById("loginLink").style.display = "none";
+    }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    const loginLink = document.getElementById("loginLink");
+    const logoutLink = document.getElementById("logoutLink");
+    const adminMenu = document.getElementById("adminMenu");
+
+    if (isAdmin) {
+      adminMenu.style.display = "block";
+      loginLink.style.display = "none";
+      logoutLink.style.display = "block";
+    } else {
+      adminMenu.style.display = "none";
+      loginLink.style.display = "block";
+      logoutLink.style.display = "none";
+    }
+
+    // Cerrar sesión
+    logoutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("isAdmin");
+      window.location.href = "index.html"; // redirigir a inicio
+    });
+  });
+</script>
+</body>
+</html>
