@@ -15,7 +15,7 @@ const defaultServices = [
     ],
     price: 25000,
     stock: 60,
-    img: "img/servicio1.png"
+    img: "img/servicio1.PNG"
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const defaultServices = [
     ],
     price: 30000,
     stock: 50,
-    img: "img/servicio2.png"
+    img: "img/servicio2.PNG"
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const defaultServices = [
     ],
     price: 28000,
     stock: 40,
-    img: "img/servicio3.png"
+    img: "img/servicio3.PNG"
   },
   {
     id: 4,
@@ -50,7 +50,7 @@ const defaultServices = [
     features: ["Dominio gratis incluido", "Subdominios ilimitados"],
     price: 0,
     stock: 100,
-    img: "img/servicio4.png"
+    img: "img/servicio4.PNG"
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ const defaultServices = [
     features: ["Certificado SSL gratis", "Renovación automática"],
     price: 15000,
     stock: 80,
-    img: "img/servicio5.png"
+    img: "img/servicio5.PNG"
   },
   {
     id: 6,
@@ -68,7 +68,7 @@ const defaultServices = [
     features: ["CPU dedicada", "Almacenamiento SSD", "Acceso root"],
     price: 45000,
     stock: 30,
-    img: "img/servicio6.png"
+    img: "img/servicio6.PNG"
   },
   {
     id: 7,
@@ -77,7 +77,7 @@ const defaultServices = [
     features: ["Correo profesional", "Filtros anti-spam", "Acceso web y móvil"],
     price: 12000,
     stock: 70,
-    img: "img/servicio7.png"
+    img: "img/servicio7.PNG"
   },
   {
     id: 8,
@@ -86,7 +86,7 @@ const defaultServices = [
     features: ["Restauración rápida", "Backups diarios automáticos"],
     price: 10000,
     stock: 60,
-    img: "img/servicio8.png"
+    img: "img/servicio8.PNG"
   },
   {
     id: 9,
@@ -95,17 +95,34 @@ const defaultServices = [
     features: ["Soporte telefónico y chat", "Asistencia remota"],
     price: 0,
     stock: 999,
-    img: "img/servicio9.png"
+    img: "img/servicio9.PNG"
   },
 ];
 
 // Funciones de storage
 function readServices() {
   let services = JSON.parse(localStorage.getItem(DEFAULT_SERVICES_KEY));
-  if (!services) {
+  if (!services || !Array.isArray(services) || services.length === 0) {
     services = defaultServices;
     localStorage.setItem(DEFAULT_SERVICES_KEY, JSON.stringify(services));
+    return services;
   }
+
+  // Merge: si hay servicios guardados pero les faltan campos, los completamos desde defaultServices
+  services = services.map(s => {
+    const def = defaultServices.find(d => d.id === s.id) || {};
+    return {
+      id: s.id ?? def.id,
+      name: s.name ?? def.name ?? 'Servicio',
+      description: s.description ?? def.description ?? '',
+      features: s.features ?? def.features ?? [],
+      price: s.price ?? def.price ?? 0,
+      stock: s.stock ?? def.stock ?? 0,
+      img: s.img ?? def.img ?? 'img/placeholder.png'
+    };
+  });
+
+  localStorage.setItem(DEFAULT_SERVICES_KEY, JSON.stringify(services));
   return services;
 }
 
@@ -156,9 +173,10 @@ function initServicesPage() {
     const card = document.createElement("div");
     card.className = "service-card";
     card.innerHTML = `
-      <img src="${s.img}" alt="${s.name}" class="icon-img">
+      <img src="${s.img}" alt="${s.name}" class="icon-img"
+          onerror="this.onerror=null; this.src='img/placeholder.png';">
       <h3>${s.name}</h3>
-      <p>${s.description}</p>
+      <p>${s.description ?? ''}</p>
     `;
     card.style.cursor = "pointer";
     card.addEventListener("click", () => {
