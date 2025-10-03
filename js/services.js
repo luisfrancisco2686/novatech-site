@@ -204,7 +204,93 @@ function initServicesPage() {
   updateCartCountUI();
 }
 
-// Inicializa al cargar
+
+// Inicializa funciones dependiendo de la página actual
 document.addEventListener("DOMContentLoaded", () => {
-  initServicesPage();
+  // Si la página tiene la sección de servicios
+  if (document.getElementById("servicesGrid")) {
+    initServicesPage();
+  }
+
+  // Si la página tiene el formulario de contacto
+  if (document.getElementById("contactForm")) {
+    initContactPage();
+  }
+
 });
+
+// ======================
+//   CONTACTO
+// ======================
+function initContactPage() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const errNombres = document.getElementById('errNombres');
+  const errApellidos = document.getElementById('errApellidos');
+  const errEmail = document.getElementById('errEmail');
+  const errPais = document.getElementById('errPais');
+  const errMensaje = document.getElementById('errMensaje');
+  const successMsg = document.getElementById('successMsg');
+
+  const show = (el) => el && (el.style.display = 'block');
+  const hide = (el) => el && (el.style.display = 'none');
+
+  hide(errNombres);
+  hide(errApellidos);
+  hide(errEmail);
+  hide(errPais);
+  hide(errMensaje);
+  hide(successMsg);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    hide(errNombres);
+    hide(errApellidos);
+    hide(errEmail);
+    hide(errPais);
+    hide(errMensaje);
+    hide(successMsg);
+
+    const nombres = form.nombres.value.trim();
+    const apellidos = form.apellidos.value.trim();
+    const email = form.email.value.trim();
+    const empresa = form.empresa.value.trim();
+    const pais = form.pais.value.trim();
+    const mensaje = form.mensaje.value.trim();
+
+    let valid = true;
+
+    if (nombres.length < 2) { show(errNombres); valid = false; }
+    if (apellidos.length < 2) { show(errApellidos); valid = false; }
+    if (!/\S+@\S+\.\S+/.test(email)) { show(errEmail); valid = false; }
+    if (!pais) { show(errPais); valid = false; }
+    if (mensaje.length < 1) { show(errMensaje); valid = false; }
+
+    if (!valid) return;
+
+    try {
+      const response = await fetch('http://localhost:3000/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombres, apellidos, email, empresa, pais, mensaje }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        successMsg.textContent = '✅ Mensaje enviado correctamente. Gracias por contactarnos.';
+        show(successMsg);
+        form.reset();
+      } else {
+        successMsg.textContent = '❌ Error al enviar el mensaje: ' + (result.message || '');
+        show(successMsg);
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
+      successMsg.textContent = '❌ No se pudo conectar con el servidor. Verifica tu conexión.';
+      show(successMsg);
+    }
+  });
+}
